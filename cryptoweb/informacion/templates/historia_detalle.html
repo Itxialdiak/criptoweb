@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+  <h2>{{ episodio.titulo }}</h2>
+  <p>{{ episodio.contenido }}</p>
+  <a href="{% url 'historia_lista' %}">Volver a la lista</a>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<div>
+  <h2>Técnicas Criptográficas</h2>
+  <form method="get">
+    <input type="text" name="q" placeholder="Buscar técnicas..." value="{{ request.GET.q }}">
+    <button type="submit">Buscar</button>
+  </form>
+  <ul>
+    {% for tecnica in tecnicas %}
+      <li>
+        <h3>{{ tecnica.nombre }}</h3>
+        <p>{{ tecnica.descripcion }}</p>
+        <details>
+          <summary>Detalles</summary>
+          <p>{{ tecnica.detalles }}</p>
+        </details>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

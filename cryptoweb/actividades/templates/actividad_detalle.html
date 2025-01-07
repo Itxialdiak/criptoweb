@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h1>{{ actividad.titulo }}</h1>
+<div class="container mt-5">
+    <p><strong>Estado:</strong>
+        {% if actividad.estado %}
+            <span class="badge bg-success">Resuelta</span>
+        {% else %}
+            <span class="badge bg-danger">No Resuelta</span>
+        {% endif %}
+    </p>
+    <p><strong>Descripción:</strong></p>
+    <br>
+    <p>{{ actividad.descripcion }}</p>
+    <br>
+    <p><strong>Texto Cifrado:</strong> {{ actividad.Pregunta }}</p>
+    <form id="respuestaForm" method="post" action="{% url 'verificar_respuesta' actividad.id %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="respuesta" class="form-label">Tu Respuesta:</label>
+        <input type="text" class="form-control" id="respuesta" name="respuesta" required>
+      </div>
+      <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pistaModal">Pista</button>
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+<!-- Modal para mostrar la pista -->
+<div class="modal fade" id="pistaModal" tabindex="-1" aria-labelledby="pistaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pistaModalLabel">Pista</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{ actividad.pista }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para mostrar el éxito -->
+<div class="modal fade" id="exitoModal" tabindex="-1" aria-labelledby="exitoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exitoModalLabel">¡Felicidades!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¡Has resuelto correctamente la actividad!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal para mostrar el error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="errorModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        La respuesta es incorrecta. ¡Inténtalo de nuevo!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    var exitoModal = new bootstrap.Modal(document.getElementById('exitoModal'));
+                    exitoModal.show();
+                {% elif message.tags == 'error' %}
+                    var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    });
+</script>
+{% endblock %}

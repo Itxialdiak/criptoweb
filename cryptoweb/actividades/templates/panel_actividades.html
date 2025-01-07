@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load dict_lockup %} 
+
+{% block contenido %}
+  <h1>Actividades</h1>
+
+  <!-- 
+      Iteramos sobre la lista de niveles.
+      Por cada nivel, mostramos un subtítulo (h2) y la lista de actividades
+      a la que el usuario puede acceder.
+  -->
+  <div class = "container">
+    
+    {% for nivel in niveles %}
+      <section style="margin-bottom: 2rem;">
+        <h3>{{ nivel.nombre }}</h3>
+        {% with actividades=actividades_por_nivel|get_item:nivel.nombre %}
+          {% if actividades %}
+            <ul>
+              {% for actividad in actividades %}
+                <li>
+                  <a href="{% url 'actividad_detalle' actividad.id %}">
+                    {{ actividad.titulo }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No tienes el nivel requerido para acceder a estas actividades.</p>
+            <p>
+              <a href="{% url 'prueba_nivel' %}">Realizar Prueba de Nivel</a>
+            </p>
+          {% endif %}
+        {% endwith %}
+      </section>
+    {% endfor %}
+  </div>
+{% endblock %}

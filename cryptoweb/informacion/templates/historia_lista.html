@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+  <h2>Historia de la Criptografía</h2>
+  <ul>
+    {% for ep in episodios %}
+      <li><a href="{% url 'historia_detalle' ep.id %}">{{ ep.titulo }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
