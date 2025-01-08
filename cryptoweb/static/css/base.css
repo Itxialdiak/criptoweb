@@ -81,10 +81,10 @@ body {
     min-height: 100vh; /* Mínimo 100% de la altura del viewport */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Opcional: centra el contenido verticalmente */
+    
     align-items: center; /*Opcional: centra el contenido horizontalmente */
     
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
 /* Sidebar Styles */
@@ -189,12 +189,4 @@ a.article, a.article:hover {
 }
 
 /* Modal Styles */
-.modal-xl {
-    max-width: 90%;
-}
 
-.custom-control-input {
-    position: absolute;
-    z-index: 9999 !important;
-    opacity: 0;
-}
