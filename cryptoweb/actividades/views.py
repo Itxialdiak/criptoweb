@@ -4,7 +4,8 @@ from django.contrib import messages
 import random
 from .models import Nivel, Actividad, Pregunta
 from .forms import PruebaForm
-from usuarios.models import Perfil, UsuarioActividad
+from usuarios.models import Perfil, UsuarioActividad, Nota
+from usuarios.forms import NotaForm
 
 def index(request):
     return render(request, 'index.html')
@@ -58,10 +59,30 @@ def actividad_detalle(request, actividad_id):
         # El usuario tiene acceso
         usuario_actividad.prueba = False  # Resetear el valor de prueba
         usuario_actividad.save()
-        return render(request, 'actividad_detalle.html', {'actividad': actividad})
+        if request.method == 'POST' and 'nota' in request.POST:
+            nota_form = NotaForm(request.POST)
+            if nota_form.is_valid():
+                nota = nota_form.save(commit=False)
+                nota.perfil = request.user.perfil
+                nota.actividad = actividad
+                nota.save()
+                messages.success(request, 'Nota guardada correctamente.')
+                return redirect('actividad_detalle', actividad_id=actividad_id)
+        else:
+            nota_form = NotaForm()
+
+        notas = Nota.objects.filter(perfil=request.user.perfil, actividad=actividad)
+
+        return render(request, 'actividad_detalle.html', {
+            'actividad': actividad,
+            'user_nivel': user_nivel,
+            'usuario_actividad': usuario_actividad,
+            'nota_form': nota_form,
+            'notas': notas,
+        })
     else:
         # No tiene acceso
-        return render(request, 'acceso_denegado.html', {'actividad': actividad})
+        return render(request, 'acceso_denegado.html', {'actividad': actividad, 'user_nivel': user_nivel, 'usuario_actividad': usuario_actividad})
     
 @login_required
 def realizar_prueba_nivel(request, nivel_nombre):
