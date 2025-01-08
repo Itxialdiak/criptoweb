@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-  <h2>Historia de la Criptografía</h2>
+  <h2><i class="bi bi-book"></i> Historia de la Criptografía <i class="bi bi-book"></i></h2>
   <ul>
     {% for ep in episodios %}
       <li><a href="{% url 'historia_detalle' ep.id %}">{{ ep.titulo }}</a></li>

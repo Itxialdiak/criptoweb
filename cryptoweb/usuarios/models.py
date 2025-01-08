@@ -30,3 +30,12 @@ class UsuarioActividad(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.actividad.titulo} - {'Resuelta' if self.estado else 'No Resuelta'}"
+
+class Nota(models.Model):
+    perfil = models.ForeignKey(Perfil, on_delete=models.CASCADE)
+    actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE)
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Nota de {self.perfil.user.username} - {self.fecha_creacion}"

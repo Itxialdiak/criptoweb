@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+<h2>Perfil de Usuario</h2>
+<div class="container mt-5">
+    <p>Usuario: {{ perfil.user.username }}</p>
+    <p>Nombre: {{ perfil.user.first_name }} {{ perfil.user.last_name }}</p>
+    <p>Email: {{ perfil.user.email }}</p>
+    <p>Nivel: {{ perfil.nivel }}</p>
+    <p>Experiencia: {{ experiencia_actual }}/{{ experiencia_proximo_nivel }}</p>
+
+    <!-- Barra de progreso -->
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: {{ porcentaje_experiencia }}%;" aria-valuenow="{{ experiencia_actual }}" aria-valuemin="0" aria-valuemax="{{ experiencia_requerida }}"></div>
+    </div>
+
+    <br>
+    <!-- Botón de Editar Perfil -->
+    <a href="{% url 'editar_perfil' %}" class="btn btn-secondary mt-3">Editar Perfil</a>
+</div>
+{% endblock %}
