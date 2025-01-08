@@ -28,7 +28,7 @@
           {% else %}
             <p>No tienes el nivel requerido para acceder a estas actividades.</p>
             <p>
-              <a href="{% url 'prueba_nivel' %}">Realizar Prueba de Nivel</a>
+              <a href="{% url 'prueba_nivel' nivel.nombre %}">Realizar Prueba de Nivel</a>
             </p>
           {% endif %}
         {% endwith %}

@@ -4,7 +4,7 @@
 <h1>{{ actividad.titulo }}</h1>
 <div class="container mt-5">
     <p><strong>Estado:</strong>
-        {% if actividad.estado %}
+        {% if usuario_actividad.estado %}
             <span class="badge bg-success">Resuelta</span>
         {% else %}
             <span class="badge bg-danger">No Resuelta</span>
@@ -15,6 +15,9 @@
     <p>{{ actividad.descripcion }}</p>
     <br>
     <p><strong>Texto Cifrado:</strong> {{ actividad.Pregunta }}</p>
+    {% if actividad.clave != null %}
+        <p><strong>Clave:</strong> {{ actividad.clave }}</p>
+    {% endif %}
     <form id="respuestaForm" method="post" action="{% url 'verificar_respuesta' actividad.id %}">
       {% csrf_token %}
       <div class="mb-3">

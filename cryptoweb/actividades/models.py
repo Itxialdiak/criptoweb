@@ -21,7 +21,6 @@ class Actividad(models.Model):
     nivel_requerido = models.ForeignKey(Nivel, on_delete=models.CASCADE)
     solucion = models.TextField()
     puntos = models.PositiveIntegerField()
-    estado = models.BooleanField(default=False)
     clave = models.CharField(max_length=100, null=True)
 
     def __str__(self):

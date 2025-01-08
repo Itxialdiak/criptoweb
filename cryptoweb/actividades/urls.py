@@ -7,5 +7,5 @@ urlpatterns = [
     path('panel/', views.panel_actividades, name='panel_actividades'),
     path('actividad/<int:actividad_id>/', views.actividad_detalle, name='actividad_detalle'),
     path('actividad/<int:actividad_id>/verificar/', views.verificar_respuesta, name='verificar_respuesta'),
-    path('prueba_nivel/', views.prueba_nivel, name='prueba_nivel'),
+    path('prueba_nivel/<str:nivel_nombre>', views.realizar_prueba_nivel, name='prueba_nivel'),
 ]

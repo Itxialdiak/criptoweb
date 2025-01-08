@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import random
 from .models import Nivel, Actividad, Pregunta
 from .forms import PruebaForm
-from usuarios.models import Perfil
+from usuarios.models import Perfil, UsuarioActividad
 
 def index(request):
     return render(request, 'index.html')
@@ -53,37 +54,22 @@ def actividad_detalle(request, actividad_id):
 
     if orden[user_nivel] >= orden[actividad.nivel_requerido.nombre]:
         # El usuario tiene acceso
+        usuario_actividad, created = UsuarioActividad.objects.get_or_create(perfil=request.user.perfil, actividad=actividad)
         return render(request, 'actividad_detalle.html', {'actividad': actividad})
     else:
         # No tiene acceso
         return render(request, 'acceso_denegado.html', {'actividad': actividad})
     
 @login_required
-def prueba_nivel(request):
-    preguntas = Pregunta.objects.all()[:10]  # Seleccionar 10 preguntas
-    if request.method == "POST":
-        form = PruebaForm(request.POST, preguntas=preguntas)
-        if form.is_valid():
-            respuestas = form.cleaned_data
-            puntaje = 0
-            for pregunta in preguntas:
-                if respuestas.get(f'pregunta_{pregunta.id}') == pregunta.respuesta_correcta:
-                    puntaje += 1
-            # Determinar el nivel basado en el puntaje
-            if puntaje >= 8:
-                nuevo_nivel = 'Avanzado'
-            elif puntaje >= 5:
-                nuevo_nivel = 'Medio'
-            else:
-                nuevo_nivel = 'Básico'
-            # Actualizar el perfil del usuario
-            perfil = request.user.perfil
-            perfil.nivel = nuevo_nivel
-            perfil.save()
-            return redirect('panel_actividades')
+def realizar_prueba_nivel(request, nivel_nombre):
+    nivel = get_object_or_404(Nivel, nombre=nivel_nombre)
+    actividades = Actividad.objects.filter(nivel_requerido=nivel)
+    if actividades.exists():
+        actividad = random.choice(actividades)
+        return redirect('actividad_detalle', actividad_id=actividad.id)
     else:
-        form = PruebaForm(preguntas=preguntas)
-    return render(request, 'prueba_nivel.html', {'form': form})
+        messages.error(request, 'No hay actividades disponibles para este nivel.')
+        return redirect('panel_actividades')
 
 def verificar_respuesta(request, actividad_id):
     if request.method == 'POST':
@@ -92,11 +78,12 @@ def verificar_respuesta(request, actividad_id):
         
         if respuesta_usuario.strip().lower() == actividad.solucion.strip().lower():
             # Respuesta correcta
-            actividad.estado = True
-            actividad.save()
+            usuario_actividad, created = UsuarioActividad.objects.get_or_create(usuario=request.user, actividad=actividad)
+            usuario_actividad.estado = True
+            usuario_actividad.save()
             
             perfil = request.user.perfil
-            perfil.puntos += actividad.puntos
+            perfil.experiencia += actividad.puntos
             perfil.save()
             
             # Verificar si el usuario sube de nivel
@@ -108,6 +95,7 @@ def verificar_respuesta(request, actividad_id):
             # Respuesta incorrecta
             messages.error(request, 'La respuesta es incorrecta. ¡Inténtalo de nuevo!')
             return redirect('actividad_detalle', actividad_id=actividad_id)
+
         
 def verificar_nivel(perfil):
     niveles = [
