@@ -52,9 +52,12 @@ def actividad_detalle(request, actividad_id):
         ]
     orden = {nivel: idx for idx, nivel in enumerate(niveles, start=1)}
 
-    if orden[user_nivel] >= orden[actividad.nivel_requerido.nombre]:
+    usuario_actividad, created = UsuarioActividad.objects.get_or_create(perfil=request.user.perfil, actividad=actividad)
+
+    if usuario_actividad.prueba or orden[user_nivel] >= orden[actividad.nivel_requerido.nombre]:
         # El usuario tiene acceso
-        usuario_actividad, created = UsuarioActividad.objects.get_or_create(perfil=request.user.perfil, actividad=actividad)
+        usuario_actividad.prueba = False  # Resetear el valor de prueba
+        usuario_actividad.save()
         return render(request, 'actividad_detalle.html', {'actividad': actividad})
     else:
         # No tiene acceso
@@ -66,6 +69,9 @@ def realizar_prueba_nivel(request, nivel_nombre):
     actividades = Actividad.objects.filter(nivel_requerido=nivel)
     if actividades.exists():
         actividad = random.choice(actividades)
+        usuario_actividad, created = UsuarioActividad.objects.get_or_create(perfil=request.user.perfil, actividad=actividad)
+        usuario_actividad.prueba = True
+        usuario_actividad.save()
         return redirect('actividad_detalle', actividad_id=actividad.id)
     else:
         messages.error(request, 'No hay actividades disponibles para este nivel.')
@@ -78,7 +84,7 @@ def verificar_respuesta(request, actividad_id):
         
         if respuesta_usuario.strip().lower() == actividad.solucion.strip().lower():
             # Respuesta correcta
-            usuario_actividad, created = UsuarioActividad.objects.get_or_create(usuario=request.user, actividad=actividad)
+            usuario_actividad, created = UsuarioActividad.objects.get_or_create(perfil=request.user.perfil, actividad=actividad)
             usuario_actividad.estado = True
             usuario_actividad.save()
             

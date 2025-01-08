@@ -1,16 +1,17 @@
 /* Importing Google Fonts */
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+@import 'https://fonts.googleapis.com/css2?family=VT323&display=swap';
 
 /* General Body Styles */
 body {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'VT323', sans-serif !important;
     background: #fafafa !important;
+    font-size: 20px;
 }
 
 /* Navbar Styles */
 .navbar {
     padding: 15px 10px;
-    background: #0d6efd; /* Fondo azul */
+    background: #033175; /* Fondo azul */
     border: none;
     border-radius: 0;
     margin-bottom: 0px;
@@ -83,7 +84,7 @@ body {
     justify-content: center; /* Opcional: centra el contenido verticalmente */
     align-items: center; /*Opcional: centra el contenido horizontalmente */
     
-    padding-top: 50px;
+    padding-top: 20px;
 }
 
 /* Sidebar Styles */

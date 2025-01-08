@@ -3,5 +3,5 @@
 {% block contenido %}
   <h2>Acceso Denegado</h2>
   <p>No tienes el nivel requerido para acceder a esta actividad.</p>
-  <a href="{% url 'prueba_nivel' %}">Realizar Prueba de Nivel</a>
+  <a href="{% url 'prueba_nivel' nivel.nombre %}">Realizar Prueba de Nivel</a>
 {% endblock %}

@@ -23,6 +23,7 @@ class UsuarioActividad(models.Model):
     perfil = models.ForeignKey(Perfil, on_delete=models.CASCADE)
     actividad = models.ForeignKey(Actividad, on_delete=models.CASCADE)
     estado = models.BooleanField(default=False)
+    prueba = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('perfil', 'actividad')
