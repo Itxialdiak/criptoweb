@@ -15,7 +15,7 @@
     <p>{{ actividad.descripcion }}</p>
     <br>
     <p><strong>Texto Cifrado:</strong> {{ actividad.Pregunta }}</p>
-    {% if actividad.clave != "null" %}
+    {% if actividad.clave != "0" %}
         <p><strong>Clave:</strong> {{ actividad.clave }}</p>
     {% endif %}
     <br>
@@ -31,6 +31,13 @@
             <li class="list-group-item">{{ nota.contenido }} <small class="text-muted">({{ nota.fecha_creacion }})</small></li>
         {% endfor %}
     </ul>
+    {% if actividad.terminal %}
+        <hr>
+        <h3>Consola Bash</h3>
+        <div id="terminal" class="terminal"></div>
+        <input type="text" id="commandInput" class="form-control" placeholder="Escribe tu comando aquí...">
+        <button id="runCommand" class="btn btn-primary mt-2">Ejecutar</button>
+    {% endif %}
     <form id="respuestaForm" method="post" action="{% url 'verificar_respuesta' actividad.id %}">
       {% csrf_token %}
       <div class="mb-3">

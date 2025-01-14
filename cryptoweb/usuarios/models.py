@@ -5,10 +5,8 @@ from actividades.models import Actividad
 class Perfil(models.Model):
     NIVEL_CHOICES = [
         ('Básico', 'Básico'),
-        ('Fácil', 'Fácil'),
         ('Medio', 'Medio'),
         ('Avanzado', 'Avanzado'),
-        ('Experto', 'Experto'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     nivel = models.CharField(max_length=10, choices=NIVEL_CHOICES, default='Básico')

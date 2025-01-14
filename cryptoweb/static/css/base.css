@@ -205,6 +205,15 @@ a.article, a.article:hover {
     transition: width 0.6s ease;
 }
 
+.terminal {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+}
+
 /* Media Queries for Responsive Adjustments */
 @media (max-width: 768px) {
     #sidebar {

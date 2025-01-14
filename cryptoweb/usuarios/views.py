@@ -19,20 +19,18 @@ def registro(request):
 @login_required
 def perfil_usuario(request):
     perfil = Perfil.objects.get(user=request.user)
-    niveles = ['Básico', 'Fácil', 'Medio', 'Avanzado', 'Experto']
+    niveles = ['Básico', 'Medio', 'Avanzado']
     puntos_requeridos = {
         'Básico': 10,
-        'Fácil': 100,
-        'Medio': 1000,
-        'Avanzado': 10000,
-        'Experto': float('inf'),  # Infinito para el nivel Experto
+        'Medio': 100,
+        'Avanzado': 1000,
     }
     nivel_actual = perfil.nivel
     experiencia_actual = perfil.experiencia
     experiencia_requerida = puntos_requeridos[nivel_actual]
 
     # Calcular la experiencia para el próximo nivel
-    if nivel_actual != 'Experto':
+    if nivel_actual != 'Avanzado':
         indice_nivel_actual = niveles.index(nivel_actual)
         proximo_nivel = niveles[indice_nivel_actual + 1]
         experiencia_proximo_nivel = puntos_requeridos[proximo_nivel]

@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block contenido %}
-  <h2>{{ episodio.titulo }}</h2>
-  <p>{{ episodio.contenido }}</p>
-  <a href="{% url 'historia_lista' %}">Volver a la lista</a>
+  <h1>{{ episodio.titulo }}</h1>
+  {% if episodio.imagen %}
+    <img src="{{ episodio.imagen.url }}" alt="{{ episodio.titulo }}" class="img-fluid">
+  {% endif %}
+  <div class="container mt-5">
+    <p>{{ episodio.contenido|linebreaks }}</p>
+    <a href="{% url 'historia_lista' %}">Volver a la lista</a>
+  </div>
 {% endblock %}

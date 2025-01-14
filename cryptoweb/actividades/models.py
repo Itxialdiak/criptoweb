@@ -4,10 +4,8 @@ from django.contrib.auth.models import User
 class Nivel(models.Model):
     nombre = models.CharField(max_length=20, choices=[
         ('Básico', 'Básico'),
-        ('Fácil', 'Fácil'),
         ('Medio', 'Medio'),
         ('Avanzado', 'Avanzado'),
-        ('Experto', 'Experto'),
     ])
 
     def __str__(self):
@@ -22,6 +20,7 @@ class Actividad(models.Model):
     solucion = models.TextField()
     puntos = models.PositiveIntegerField()
     clave = models.CharField(max_length=100, null=True)
+    terminal = models.BooleanField(default=False)
 
     def __str__(self):
         return self.titulo

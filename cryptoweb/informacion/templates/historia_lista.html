@@ -2,9 +2,28 @@
 
 {% block contenido %}
   <h2><i class="bi bi-book"></i> Historia de la Criptografía <i class="bi bi-book"></i></h2>
-  <ul>
-    {% for ep in episodios %}
-      <li><a href="{% url 'historia_detalle' ep.id %}">{{ ep.titulo }}</a></li>
+  <div class="container mt-5">
+    {% for periodo in periodos %}
+      <h3>
+        {% if periodo.orden == 1 %}
+          <i class="bi bi-hourglass-split"></i> 
+        {% elif periodo.orden == 2 %}
+          <i class="bi bi-vector-pen"></i>
+        {% elif periodo.orden == 3 %}
+          <i class="bi bi-gear"></i>
+        {% elif periodo.orden == 4 %}
+          <i class="bi bi-boombox"></i>
+        {% elif periodo.orden == 5 %}
+          <i class="bi bi-cpu"></i>
+        {% elif periodo.orden == 6 %}
+          <i class="bi bi-qr-code"></i>
+        {% endif %}
+        {{ periodo.nombre }}</h3>
+      <ul>
+          {% for ep in periodo.episodios %}
+              <li><a href="{% url 'historia_detalle' ep.id %}">{{ ep.titulo }}</a></li>
+          {% endfor %}
+      </ul>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}

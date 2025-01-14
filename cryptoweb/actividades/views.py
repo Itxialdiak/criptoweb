@@ -23,10 +23,8 @@ def panel_actividades(request):
             # Asumamos un orden: Básico < Medio < Avanzado
             orden = {
                 'Básico': 1, 
-                'Fácil': 2,
-                'Medio': 3, 
-                'Avanzado': 4,
-                'Experto': 5,
+                'Medio': 2, 
+                'Avanzado': 3,
                 }
             if orden[user_nivel] >= orden[nivel.nombre]:
                 actividades_por_nivel[nivel.nombre] = Actividad.objects.filter(nivel_requerido=nivel)
@@ -46,10 +44,8 @@ def actividad_detalle(request, actividad_id):
     user_nivel = request.user.perfil.nivel
     niveles = [
         'Básico', 
-        'Fácil',
         'Medio', 
         'Avanzado',
-        'Experto',
         ]
     orden = {nivel: idx for idx, nivel in enumerate(niveles, start=1)}
 
@@ -127,17 +123,13 @@ def verificar_respuesta(request, actividad_id):
 def verificar_nivel(perfil):
     niveles = [
         'Básico', 
-        'Fácil',
         'Medio', 
         'Avanzado',
-        'Experto',
     ]
     puntos_requeridos = {
         'Básico': 0,
-        'Fácil': 100,
-        'Medio': 1000,
-        'Avanzado': 10000,
-        'Experto': 100000,
+        'Medio': 100,
+        'Avanzado': 1000,
     }
     
     for nivel in niveles:
