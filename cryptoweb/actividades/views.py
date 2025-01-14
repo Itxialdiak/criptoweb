@@ -62,7 +62,7 @@ def actividad_detalle(request, actividad_id):
                 nota.perfil = request.user.perfil
                 nota.actividad = actividad
                 nota.save()
-                messages.success(request, 'Nota guardada correctamente.')
+                messages.info(request, 'Nota guardada correctamente.')
                 return redirect('actividad_detalle', actividad_id=actividad_id)
         else:
             nota_form = NotaForm()

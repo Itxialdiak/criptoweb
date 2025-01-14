@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 from .models import Perfil, Nota
 
 class RegistroForm(UserCreationForm):
@@ -26,6 +28,13 @@ class NotaForm(forms.ModelForm):
     class Meta:
         model = Nota
         fields = ['contenido']
+        
+    def __init__(self, *args, **kwargs):
+        super(NotaForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.template = 'bootstrap5/table_inline_formset.html'
+        self.helper.add_input(Submit('submit', 'Guardar Nota'))
 
 class EditarPerfilForm(forms.ModelForm):
     class Meta:

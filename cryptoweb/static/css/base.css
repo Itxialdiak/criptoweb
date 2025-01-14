@@ -229,3 +229,14 @@ a.article, a.article:hover {
 
 /* Modal Styles */
 
+.modal-backdrop {
+    z-index: 0 !important;
+}
+.modal {
+    z-index: 2001 !important;
+}
+
+element.style {
+    overflow: auto !important;
+    justify-items: center;
+}

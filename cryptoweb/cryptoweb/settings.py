@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Otras aplicaciones
+    'crispy_forms',
+    'crispy_bootstrap5',
     # Aplicaciones creadas
     'usuarios',
     'actividades',
@@ -149,5 +152,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = '/usuarios/login/'
 LOGIN_REDIRECT_URL = '/usuarios/profile/'
 LOGOUT_REDIRECT_URL = '/'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

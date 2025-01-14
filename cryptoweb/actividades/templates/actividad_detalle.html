@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block contenido %}
 <h1>{{ actividad.titulo }}</h1>
@@ -22,7 +23,7 @@
     <p><strong>Notas:</strong></p>
     <form method="post" action="">
         {% csrf_token %}
-        {{ nota_form.contenido }}
+        {{ nota_form|crispy }}
         <br>
         <button type="submit" name="nota" class="btn btn-secondary">Guardar Nota</button>
     </form>
@@ -102,6 +103,24 @@
   </div>
 </div>
 
+<!-- Modal para confirmar que se ha guardado el mensaje -->
+<div class="modal fade" id="NoteModal" tabindex="-1" aria-labelledby="NoteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="NoteModalLabel">Error</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Nota guardada correctamente.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Scripts -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -112,6 +131,9 @@
                     exitoModal.show();
                 {% elif message.tags == 'error' %}
                     var errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+                    errorModal.show();
+                {% elif message.tags == 'info' %}
+                    var errorModal = new bootstrap.Modal(document.getElementById('NoteModal'));
                     errorModal.show();
                 {% endif %}
             {% endfor %}
