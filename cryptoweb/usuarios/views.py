@@ -11,7 +11,7 @@ def registro(request):
         if form.is_valid():
             usuario = form.save()
             login(request, usuario)
-            return redirect('inicio')  # Redirige a la página de inicio
+            return redirect('index')  # Redirige a la página de inicio
     else:
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
@@ -59,3 +59,6 @@ def editar_perfil(request):
     else:
         form = EditarPerfilForm(instance=request.user)
     return render(request, 'editar_perfil.html', {'form': form})
+
+def politica_de_privacidad(request):
+    return render(request, 'politica_privacidad.html')

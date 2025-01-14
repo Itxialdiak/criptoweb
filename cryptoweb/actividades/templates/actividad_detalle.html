@@ -12,9 +12,9 @@
     </p>
     <p><strong>Descripción:</strong></p>
     <br>
-    <p>{{ actividad.descripcion }}</p>
+    <p>{{ actividad.descripcion|linebreaks }}</p>
     <br>
-    <p><strong>Texto Cifrado:</strong> {{ actividad.Pregunta }}</p>
+    <p><strong>Texto Cifrado:</strong> {{ actividad.Pregunta|linebreaks }}</p>
     {% if actividad.clave != "0" %}
         <p><strong>Clave:</strong> {{ actividad.clave }}</p>
     {% endif %}
