@@ -21,6 +21,7 @@ class Actividad(models.Model):
     puntos = models.PositiveIntegerField()
     clave = models.CharField(max_length=100, null=True)
     terminal = models.BooleanField(default=False)
+    order = models.PositiveIntegerField()
 
     def __str__(self):
         return self.titulo

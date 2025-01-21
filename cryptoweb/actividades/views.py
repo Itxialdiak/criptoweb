@@ -27,7 +27,7 @@ def panel_actividades(request):
                 'Avanzado': 3,
                 }
             if orden[user_nivel] >= orden[nivel.nombre]:
-                actividades_por_nivel[nivel.nombre] = Actividad.objects.filter(nivel_requerido=nivel)
+                actividades_por_nivel[nivel.nombre] = Actividad.objects.filter(nivel_requerido=nivel).order_by('order')
             else:
                 actividades_por_nivel[nivel.nombre] = None  # Usuario no tiene acceso
 

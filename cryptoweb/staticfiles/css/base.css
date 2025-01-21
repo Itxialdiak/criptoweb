@@ -1,0 +1,242 @@
+/* Importing Google Fonts */
+@import 'https://fonts.googleapis.com/css2?family=VT323&display=swap';
+
+/* Importing Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* General Body Styles */
+body {
+    font-family: 'VT323', sans-serif !important;
+    background: #fafafa !important;
+    font-size: 20px;
+}
+
+/* Tamaño de fuente para pantallas medianas (tabletas) */
+@media (min-width: 768px) {
+    body {
+        font-size: 22px;
+    }
+}
+
+/* Tamaño de fuente para pantallas grandes (PCs) */
+@media (min-width: 1024px) {
+    body {
+        font-size: 25px;
+    }
+}
+
+/* Navbar Styles */
+.navbar {
+    padding: 15px 10px;
+    background: #033175; /* Fondo azul */
+    border: none;
+    border-radius: 0;
+    margin-bottom: 0px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+/* Link Styles */
+.nav-link {
+    color: #ffffff !important; /* Color de texto blanco */
+}
+
+.nav-link:hover {
+    color: #cccccc !important; /* Color de texto al pasar el ratón */
+}
+
+/* Miscellaneous Styles */
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* Background image with overlay */
+.bg-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+   
+    background: url('/static/images/background.webp') repeat;
+    background-size: auto;
+    z-index: -1;
+}
+
+.bg-image-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.75); /* Capa translúcida blanca */
+    z-index: -2;
+    box-sizing: inherit !important;
+}
+
+*,
+::after,
+::before {
+    box-sizing: inherit !important;
+}
+
+
+.contenido-principal {
+    position: relative;
+    z-index: 1; /* Asegúrate de que el contenido esté por encima de la imagen */
+    min-height: 100vh; /* Mínimo 100% de la altura del viewport */
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center; /*Opcional: centra el contenido horizontalmente */
+    
+    padding-top: 30px;
+}
+
+/* Sidebar Styles */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: linear-gradient(to right, #4543a0, #759dd2); /* Green gradient from medium to light green */
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+/* Sidebar header with a slightly darker gradient for depth */
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: linear-gradient(to right, #4543a0, #759dd2); /* Darker shades of green for the header */
+}
+
+/* Improved visibility and aesthetic of sidebar components */
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #4c6baf; /* Solid green contrast for separation */
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+/* Hover and active styles with improved contrast */
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    color: #f0f0f0; /* Light grey text for better readability */
+    transition: color 0.3s, background-color 0.3s;
+}
+
+#sidebar ul li a:hover,
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #ffffff; /* White text for hover and active states */
+    background: #2e3c7d; /* Darker green for contrast on hover/active */
+}
+
+/* Nested links with subtle background change */
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #8191c7; /* Lighter blue for nested items */
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+/* Call to action styles with updated colors for emphasis */
+ul.CTAs a.download {
+    background: #ffffff;
+    color: #43a047; /* Link color similar to the sidebar gradient */
+    border: 1px solid #43a047; /* Border to enhance button-like appearance */
+}
+
+a.article, a.article:hover {
+    background: #66bb6a !important; /* Consistent with header gradient */
+    color: #ffffff !important;
+}
+
+#sidebarCollapse {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+/* Content Style */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.progress {
+    height: 20px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #007bff;
+    height: 100%;
+    transition: width 0.6s ease;
+}
+
+.terminal {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+}
+
+/* Media Queries for Responsive Adjustments */
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+/* Modal Styles */
+
+.modal-backdrop {
+    z-index: 0 !important;
+}
+.modal {
+    z-index: 2001 !important;
+}
+
+element.style {
+    overflow: auto !important;
+    justify-items: center;
+}
