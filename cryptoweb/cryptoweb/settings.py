@@ -37,6 +37,12 @@ ALLOWED_HOSTS = [
     'www.cryptochallenge.tech',
     ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://cryptochallenge.tech',
+    'https://cryptochallenge.tech',
+    'http://www.cryptochallenge.tech',
+    'https://www.cryptochallenge.tech',
+]
 
 # Application definition
 
@@ -168,4 +174,3 @@ LOGOUT_REDIRECT_URL = '/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
