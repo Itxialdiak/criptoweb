@@ -22,7 +22,8 @@ class RegistroForm(UserCreationForm):
 class NotaForm(forms.ModelForm):
     contenido = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribe tus notas aquí...'}),
-        required=True
+        required=True,
+        label=''  # Etiqueta vacía para que no se muestre "contenido*"
     )
 
     class Meta:
