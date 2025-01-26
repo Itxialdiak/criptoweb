@@ -32,9 +32,17 @@ ALLOWED_HOSTS = [
     '147.93.55.69',
     'cryptochallenge.tech', 
     'cryptochallenge.tech', 
+    'http://cryptochallenge.tech',
+    'https://cryptochallenge.tech',
     'www.cryptochallenge.tech',
     ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://cryptochallenge.tech',
+    'https://cryptochallenge.tech',
+    'http://www.cryptochallenge.tech',
+    'https://www.cryptochallenge.tech',
+]
 
 # Application definition
 
